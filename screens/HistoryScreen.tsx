@@ -1,5 +1,3 @@
-"use client"
-
 import { useState, useEffect } from "react"
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, SafeAreaView, Alert } from "react-native"
 import { supabase } from "../lib/supabase"
@@ -120,13 +118,13 @@ export default function HistoryScreen() {
       {item.type === "request" && item.status === "active" && (
         <View style={styles.actionButtons}>
           <TouchableOpacity
-            style={[styles.actionButton, { backgroundColor: "#22c55e" }]}
+            style={[styles.actionButton, { backgroundColor: "#00796B" }]}
             onPress={() => updateRequestStatus(item.id, "fulfilled")}
           >
             <Text style={styles.actionButtonText}>Mark Fulfilled</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={[styles.actionButton, { backgroundColor: "#ef4444" }]}
+            style={[styles.actionButton, { backgroundColor: "#DC143C" }]}
             onPress={() => updateRequestStatus(item.id, "cancelled")}
           >
             <Text style={styles.actionButtonText}>Cancel</Text>

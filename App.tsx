@@ -79,6 +79,7 @@ function ProfileStackScreen() {
       <ProfileStack.Screen name="DonorVerification" component={DonorVerificationScreen} />
       <ProfileStack.Screen name="Rewards" component={RewardsScreen} />
       <ProfileStack.Screen name="NotificationSettings" component={NotificationSettingsScreen} />
+      <ExploreStack.Screen name="BloodCompatibility" component={BloodCompatibilityScreen} />
     </ProfileStack.Navigator>
   )
 }

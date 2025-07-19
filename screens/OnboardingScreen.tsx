@@ -1,8 +1,11 @@
 import { useState, useRef } from "react"
-import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, Dimensions } from "react-native"
+import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, Dimensions, Image } from "react-native"
 import { FlatList } from "react-native-gesture-handler"
 import AsyncStorage from "@react-native-async-storage/async-storage"
-
+import SaveLivesIcon from "../assets/save-lives.svg"
+import FindDonorsIcon from "../assets/find-donors.svg"
+import StayConnectedIcon from "../assets/stay-connected.svg"
+import { CommonActions } from "@react-navigation/native"
 const { width } = Dimensions.get("window")
 
 const onboardingData = [
@@ -11,35 +14,39 @@ const onboardingData = [
     title: "Save Lives",
     subtitle: "Connect with people who need your help",
     description: "Your blood donation can save up to 3 lives. Join our community of heroes.",
-    icon: "❤️",
-    color: "#dc2626",
+    Icon: SaveLivesIcon,
+    color: "#E63946",
   },
   {
     id: "2",
     title: "Find Donors",
     subtitle: "Get help when you need it most",
     description: "Quickly find compatible donors in your area during medical emergencies.",
-    icon: "🔍",
-    color: "#059669",
+    Icon: FindDonorsIcon,
+    color: "#F4A261",
   },
   {
     id: "3",
     title: "Stay Connected",
     subtitle: "Real-time notifications and updates",
     description: "Get instant alerts for urgent requests and stay updated on your impact.",
-    icon: "🔔",
-    color: "#7c3aed",
+    Icon: StayConnectedIcon,
+    color: "#4a9294ff",
   },
 ]
-
 export default function OnboardingScreen({ navigation }: any) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const flatListRef = useRef<FlatList>(null)
 
-  const completeOnboarding = async () => {
-  await AsyncStorage.setItem("hasSeenOnboarding", "true");
-  navigation.replace("Auth");
- };
+ const completeOnboarding = async () => {
+  await AsyncStorage.setItem("hasSeenOnboarding", "true")
+  navigation.dispatch(
+    CommonActions.reset({
+      index: 0,
+      routes: [{ name: 'Auth' }],
+    })
+  )
+}
 
 
   const nextSlide = () => {
@@ -52,16 +59,19 @@ export default function OnboardingScreen({ navigation }: any) {
     }
   }
 
-  const renderOnboardingItem = ({ item }: { item: any }) => (
+  const renderOnboardingItem = ({ item }: { item: any }) => {
+  const Icon = item.Icon;
+  return (
     <View style={[styles.slide, { backgroundColor: item.color }]}>
       <View style={styles.content}>
-        <Text style={styles.icon}>{item.icon}</Text>
+        <Icon width={100} height={100} />
         <Text style={styles.title}>{item.title}</Text>
         <Text style={styles.subtitle}>{item.subtitle}</Text>
         <Text style={styles.description}>{item.description}</Text>
       </View>
     </View>
-  )
+  );
+}
 
   return (
     <SafeAreaView style={styles.container}>
@@ -116,7 +126,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 40,
   },
   icon: {
-    fontSize: 80,
+    width: 100,
+    height: 100,
     marginBottom: 30,
   },
   title: {

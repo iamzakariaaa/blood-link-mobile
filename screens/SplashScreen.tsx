@@ -1,5 +1,3 @@
-"use client"
-
 import { useState, useEffect, useRef } from "react"
 import { View, Text, StyleSheet, Animated, Dimensions, Image, TouchableOpacity } from "react-native"
 
@@ -136,7 +134,7 @@ export default function SplashScreen({ onFinish }: SplashScreenProps) {
 
         {/* Loading Section */}
         <View style={styles.loadingContainer}>
-          {!isLoadingComplete ? (
+          {!isLoadingComplete && (
             <>
               <Text style={styles.loadingText}>{loadingText}</Text>
 
@@ -165,11 +163,12 @@ export default function SplashScreen({ onFinish }: SplashScreenProps) {
                 <LoadingDot delay={400} />
               </View>
             </>
-          ) : (
+          )} 
+          {isLoadingComplete && (
             <Animated.View style={[styles.buttonContainer, { opacity: buttonFadeAnim }]}>
               <Text style={styles.tagline}>Connecting Lives, Saving Hearts</Text>
               <TouchableOpacity style={styles.getStartedButton} onPress={handleGetStarted}>
-                <Text style={styles.getStartedButtonText}>Get Started</Text>
+                <Text style={styles.getStartedButtonText}>Let's Get Started</Text>
               </TouchableOpacity>
             </Animated.View>
           )}
@@ -267,7 +266,7 @@ const styles = StyleSheet.create({
   loadingContainer: {
     alignItems: "center",
     width: "100%",
-    minHeight: 120, // Ensure consistent height for loading and button states
+    minHeight: 120, 
   },
   loadingText: {
     fontSize: 16,
@@ -327,15 +326,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#dc2626",
     borderRadius: 25,
     paddingHorizontal: 40,
-    paddingVertical: 15,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    paddingVertical: 15
   },
   getStartedButtonText: {
     color: "white",
